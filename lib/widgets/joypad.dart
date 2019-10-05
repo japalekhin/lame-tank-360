@@ -65,6 +65,7 @@ class JoypadState extends State<Joypad> {
           onPanDown: onDragDown,
           onPanUpdate: onDragUpdate,
           onPanEnd: onDragEnd,
+          onPanCancel: onDragCancel,
         ),
       ),
     );
@@ -79,6 +80,10 @@ class JoypadState extends State<Joypad> {
   }
 
   void onDragEnd(DragEndDetails d) {
+    updateDelta(Offset.zero);
+  }
+
+  void onDragCancel() {
     updateDelta(Offset.zero);
   }
 }
