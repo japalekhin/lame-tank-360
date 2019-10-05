@@ -37,7 +37,7 @@ Future main() async {
                   ),
                   Spacer(),
                   Joypad(
-                    onChange: (Offset delta) => print(delta),
+                    onChange: game.onRightJoypadChange,
                   ),
                   SizedBox(width: 48),
                 ],

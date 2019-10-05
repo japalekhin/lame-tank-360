@@ -8,6 +8,7 @@ class Tank {
   double bodyAngle = 0;
   double turretAngle = 0;
   double targetBodyAngle;
+  double targetTurretAngle;
 
   Tank(this.game, {this.position});
 
@@ -38,6 +39,9 @@ class Tank {
       Rect.fromLTWH(-24, 15, 48, 8),
       darkPaint,
     );
+
+    // rotate the turret
+    c.rotate(turretAngle);
 
     // draw turret
     c.drawRect(
@@ -83,6 +87,36 @@ class Tank {
           bodyAngle = bodyAngle - rotationRate;
           if (bodyAngle < targetBodyAngle) {
             bodyAngle = targetBodyAngle;
+          }
+        }
+      }
+    }
+
+    if (targetTurretAngle != null) {
+      double localTargetTurretAngle = targetTurretAngle - bodyAngle;
+      if (turretAngle < localTargetTurretAngle) {
+        if ((localTargetTurretAngle - turretAngle).abs() > pi) {
+          turretAngle = turretAngle - rotationRate;
+          if (turretAngle < -pi) {
+            turretAngle += pi * 2;
+          }
+        } else {
+          turretAngle = turretAngle + rotationRate;
+          if (turretAngle > localTargetTurretAngle) {
+            turretAngle = localTargetTurretAngle;
+          }
+        }
+      }
+      if (turretAngle > localTargetTurretAngle) {
+        if ((localTargetTurretAngle - turretAngle).abs() > pi) {
+          turretAngle = turretAngle + rotationRate;
+          if (turretAngle > pi) {
+            turretAngle -= pi * 2;
+          }
+        } else {
+          turretAngle = turretAngle - rotationRate;
+          if (turretAngle < localTargetTurretAngle) {
+            turretAngle = localTargetTurretAngle;
           }
         }
       }

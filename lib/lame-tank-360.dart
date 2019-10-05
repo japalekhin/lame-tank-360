@@ -58,4 +58,12 @@ class LameTank360 extends Game {
       tank.targetBodyAngle = offset.direction;
     }
   }
+
+  void onRightJoypadChange(Offset offset) {
+    if (offset == Offset.zero) {
+      tank.targetTurretAngle = null;
+    } else {
+      tank.targetTurretAngle = offset.direction;
+    }
+  }
 }
