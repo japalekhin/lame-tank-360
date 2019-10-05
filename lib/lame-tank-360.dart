@@ -32,6 +32,8 @@ class LameTank360 extends Game {
     if (screenSize == null) {
       return; // just end execution if there's no screenSize
     }
+
+    tank.update(t);
   }
 
   @override
@@ -46,6 +48,14 @@ class LameTank360 extends Game {
           screenSize.height / 2,
         ),
       );
+    }
+  }
+
+  void onLeftJoypadChange(Offset offset) {
+    if (offset == Offset.zero) {
+      tank.targetBodyAngle = null;
+    } else {
+      tank.targetBodyAngle = offset.direction;
     }
   }
 }

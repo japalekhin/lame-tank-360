@@ -33,7 +33,7 @@ Future main() async {
                 children: <Widget>[
                   SizedBox(width: 48),
                   Joypad(
-                    onChange: (Offset delta) => print(delta),
+                    onChange: game.onLeftJoypadChange,
                   ),
                   Spacer(),
                   Joypad(
