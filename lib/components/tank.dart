@@ -64,6 +64,12 @@ class Tank {
     final double rotationRate = pi * t;
 
     if (targetBodyAngle != null) {
+      if (bodyAngle == targetBodyAngle) {
+        position = position + Offset.fromDirection(bodyAngle, 100 * t);
+      } else {
+        position = position + Offset.fromDirection(bodyAngle, 50 * t);
+      }
+
       if (bodyAngle < targetBodyAngle) {
         if ((targetBodyAngle - bodyAngle).abs() > pi) {
           bodyAngle = bodyAngle - rotationRate;
