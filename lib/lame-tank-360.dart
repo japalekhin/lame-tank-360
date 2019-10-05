@@ -38,14 +38,14 @@ class LameTank360 extends Game {
   void resize(Size size) {
     screenSize = size;
 
-if (tank == null) {
-  tank = Tank(
-    this,
-    position: Offset(
-      screenSize.width / 2,
-      screenSize.height / 2,
-    ),
-  );
-}
+    if (tank == null) {
+      tank = Tank(
+        this,
+        position: Offset(
+          screenSize.width / 2,
+          screenSize.height / 2,
+        ),
+      );
+    }
   }
 }
