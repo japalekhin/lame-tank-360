@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:lame_tank_360/lame-tank-360.dart';
 
@@ -6,6 +7,7 @@ class Tank {
   Offset position = Offset.zero;
   double bodyAngle = 0;
   double turretAngle = 0;
+  double targetBodyAngle;
 
   Tank(this.game, {this.position});
 
@@ -17,6 +19,9 @@ class Tank {
     // set the canvas origin onto the tank position
     c.save();
     c.translate(position.dx, position.dy);
+
+    // rotate the whole tank
+    c.rotate(bodyAngle);
 
     // draw tank body
     c.drawRect(
@@ -51,5 +56,36 @@ class Tank {
     c.restore();
   }
 
-  void update(double t) {}
+  void update(double t) {
+    final double rotationRate = pi * t;
+
+    if (targetBodyAngle != null) {
+      if (bodyAngle < targetBodyAngle) {
+        if ((targetBodyAngle - bodyAngle).abs() > pi) {
+          bodyAngle = bodyAngle - rotationRate;
+          if (bodyAngle < -pi) {
+            bodyAngle += pi * 2;
+          }
+        } else {
+          bodyAngle = bodyAngle + rotationRate;
+          if (bodyAngle > targetBodyAngle) {
+            bodyAngle = targetBodyAngle;
+          }
+        }
+      }
+      if (bodyAngle > targetBodyAngle) {
+        if ((targetBodyAngle - bodyAngle).abs() > pi) {
+          bodyAngle = bodyAngle + rotationRate;
+          if (bodyAngle > pi) {
+            bodyAngle -= pi * 2;
+          }
+        } else {
+          bodyAngle = bodyAngle - rotationRate;
+          if (bodyAngle < targetBodyAngle) {
+            bodyAngle = targetBodyAngle;
+          }
+        }
+      }
+    }
+  }
 }
