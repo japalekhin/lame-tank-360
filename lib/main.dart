@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lame_tank_360/lame-tank-360.dart';
 import 'package:lame_tank_360/widgets/joypad.dart';
 
 Future main() async {
@@ -12,6 +13,9 @@ Future main() async {
   // disable all UI overlays (show fullscreen)
   await SystemChrome.setEnabledSystemUIOverlays([]);
 
+  // initialize a game first
+  final LameTank360 game = LameTank360();
+
   // start app
   runApp(
     Directionality(
@@ -19,9 +23,7 @@ Future main() async {
       child: Stack(
         children: <Widget>[
           // placeholder for game
-          Container(
-            color: Color(0xff27ae60),
-          ),
+          game.widget,
 
           // joypad overlay
           Column(
