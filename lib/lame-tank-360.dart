@@ -5,7 +5,7 @@ class LameTank360 extends Game {
   Size screenSize;
 
   @override
-  void render(Canvas canvas) {
+  void render(Canvas c) {
     if (screenSize == null) {
       return; // just end execution if there's no screenSize
     }
