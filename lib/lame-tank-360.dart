@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
+import 'package:lame_tank_360/components/bullet.dart';
 import 'package:lame_tank_360/components/tank.dart';
 
 class LameTank360 extends Game {
   Size screenSize;
   Tank tank;
+  List<Bullet> bullets;
 
   @override
   void render(Canvas c) {
@@ -25,6 +27,11 @@ class LameTank360 extends Game {
 
     // draw the tank
     tank.render(c);
+
+    // draw bullets
+    bullets.forEach((Bullet b) {
+      b.render(c);
+    });
   }
 
   @override
@@ -34,6 +41,16 @@ class LameTank360 extends Game {
     }
 
     tank.update(t);
+
+    // make bullets fly
+    bullets.forEach((Bullet b) {
+      b.update(t);
+    });
+
+    // remove off-screen bullets
+    bullets.removeWhere((Bullet b) {
+      return b.isOffscreen;
+    });
   }
 
   @override
@@ -48,6 +65,10 @@ class LameTank360 extends Game {
           screenSize.height / 2,
         ),
       );
+    }
+
+    if (bullets == null) {
+      bullets = List<Bullet>();
     }
   }
 
@@ -67,5 +88,13 @@ class LameTank360 extends Game {
     }
   }
 
-  void onButtonTap() {}
+  void onButtonTap() {
+    bullets.add(
+      Bullet(
+        this,
+        position: tank.getBulletOffset(),
+        angle: tank.getBulletAngle(),
+      ),
+    );
+  }
 }
