@@ -66,4 +66,6 @@ class LameTank360 extends Game {
       tank.targetTurretAngle = offset.direction;
     }
   }
+
+  void onButtonTap() {}
 }
