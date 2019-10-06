@@ -12,6 +12,25 @@ class Tank {
 
   Tank(this.game, {this.position});
 
+Offset getBulletOffset() {
+  return position +
+      Offset.fromDirection(
+        getBulletAngle(),
+        36,
+      );
+}
+
+double getBulletAngle() {
+  double bulletAngle = bodyAngle + turretAngle;
+  while (bulletAngle > pi) {
+    bulletAngle -= pi * 2;
+  }
+  while (bulletAngle < -pi) {
+    bulletAngle += pi * 2;
+  }
+  return bulletAngle;
+}
+
   void render(Canvas c) {
     // prepare some paint objects
     Paint lightPaint = Paint()..color = Color(0xffdddddd);
